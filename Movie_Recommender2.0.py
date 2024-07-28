@@ -8,7 +8,7 @@ from langchain.prompts import PromptTemplate
 from langchain.chains.question_answering import load_qa_chain  ## for question answering prompts
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.schema.output_parser import StrOutputParser
-# api_key = '4feccf9cfb31b761b48d379f043101e8'
+
 
 import os
 import google.generativeai as genai
@@ -24,7 +24,7 @@ st.set_page_config(
 
 # model=genai.GenerativeModel("gemini-pro")
 
-st.title("Movie Recommendation System using Gemini")
+st.title("Movie Recommendation System")
 
 st.write("This is a movie recommender app")
 
@@ -63,7 +63,6 @@ def recommend(movie):
     """)
     llm = ChatGoogleGenerativeAI(model="gemini-pro",
                                  temperature=0.3)
-    # ,google_api_key="AIzaSyDTzfBSXrrF0vDYh6RqtorqnIM699_5Z7s"
 
     output_parser = StrOutputParser()
     chain = prompt | llm | output_parser
@@ -88,7 +87,7 @@ def recommend(movie):
 
 
 if st.button("Recommend"):
-
+    st.spinner(text="Searching...")
     recommended_movies = recommend(input_movie_name)
 
     if recommended_movies:
